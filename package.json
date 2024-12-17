@@ -1,0 +1,15 @@
+{
+  "name": "honkit-plugin-tags",
+  "version": "0.0.1",
+  "description": "plugin for Honkit show tags in menu",
+  "main": "index.js",
+  "scripts": {
+  },
+  "engines": {                                                                                                                                                               
+    "honkit": "*",
+    "gitbook": "*"                                                                                                                                                           
+  },  
+  "keywords": [],
+  "author": "alick97",
+  "license": "MIT"
+}
