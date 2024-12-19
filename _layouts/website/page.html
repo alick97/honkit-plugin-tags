@@ -1,0 +1,23 @@
+{% extends template.self %}
+
+{% block search_input %}
+<div>
+  {{ super() }}
+  <ul class="summary">
+    <li><span id="tags-link">tags</span></li>  
+    <li class="divider"></li>  
+  </ul>
+</div>
+
+{% endblock %}
+
+{% block search_results %}
+<div>
+  <div id="original-search-result">{{ super() }}</div>
+  <div id="tags-container"> tags container </div>
+</div>
+
+
+{% endblock %}
+
+
