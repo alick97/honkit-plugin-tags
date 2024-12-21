@@ -12,12 +12,25 @@
 {% endblock %}
 
 {% block search_results %}
-<div>
-  <div id="original-search-result">{{ super() }}</div>
-  <div id="tags-container"> tags container </div>
-</div>
-
-
+  <div id="original-search-result">
+    {{ super() }}
+  </div>
+  <div id="tags-container"> 
+    <h2>tags</h2>
+    <div id="tags-container-inner">
+      <h3>tags key</h3>
+      <div id="tags-key" class="tags-items">
+      </div>
+      <h3>tags value</h3>
+      <div id="tags-value" class="tags-items">
+      </div>
+      <h3>page list</h3>
+      <div id="tags-page-list">
+      </div>
+    </div>
+    <div id="tags-container-loading">
+    </div>
+  </div>
 {% endblock %}
 
 

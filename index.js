@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require('path')
-const _tags = {}
+let _tags = {}
 
 module.exports = {
   book: {
     assets: './assets',
-    js: ['tags.js']
+    js: ['tags.js'],
+    css: ['tags.css']
   },
   blocks: {
     tag: {
@@ -13,6 +14,7 @@ module.exports = {
         const { ctx } = this;
         const { page, file }  = ctx.ctx;
         // console.log(page.title, file.path)
+        // console.log("==12", block.args)
         const [key, value] = block.args;
 
         if (!_tags[key]) {
@@ -23,7 +25,7 @@ module.exports = {
         }
         _tags[key][value].push({
           title: page.title,
-          path: file.path
+          path: file.path.replace(/\.md$/, '.html')
         })
         const t = `${key}: ${value}`;
         // console.log(t)
@@ -34,34 +36,23 @@ module.exports = {
 
   hooks: {
     'finish:before': function() {
-      // console.log('end==========', _tags)
-      // let tocContent = '\n---\n\n* [tags]()';
-      //  
-      // const _t = "    "
-      // for (const [key, values] of Object.entries(_tags)) {
-      //   tocContent += `\n${_t}* [${key}]()`;
-      //   for (const [v, items] of Object.entries(values)) {
-      //     tocContent += `\n${_t}${_t}* ${v}`;
-      //     for (const i of items) {
-      //       tocContent += `\n${_t}${_t}${_t}* [${i['title']}](${i['path']})`
-      //     }
-      //   }
-      // }
-      // // console.log(tocContent)
-      // 
-      // // Read existing SUMMARY.md if it exists
-      // const summaryPath = this.resolve('SUMMARY.md');
-      // let existingContent = '';
-      // try {
-      //   existingContent = fs.readFileSync(summaryPath, 'utf8');
-      // } catch (error) {
-      //   if (error.code !== 'ENOENT') { // File not found is expected if it's the first run
-      //     console.error('Error reading SUMMARY.md:', error);
-      //   }
-      // }
-      // // Append new content to existing content
-      // let combinedContent = existingContent + '\n' + tocContent;
-      const jsonData = JSON.stringify(_tags, null, 2)
+      // reverse sort
+      let _reverse_tags = {} 
+      for (let k of Object.keys(_tags)) {
+        _reverse_tags[k] = [];
+        let valKeys = Object.keys(_tags[k]);
+        valKeys.sort((a, b) => b.localeCompare(a));
+        for (let k1 of valKeys) {
+          _reverse_tags[k].push({
+            key: k1,
+            value: _tags[k][k1]
+          })
+        }
+      }
+      const jsonData = JSON.stringify(_reverse_tags, null, 2)
+      _tags = {}
+      _reverse_tags = {}
+
       const p = path.resolve(this.options.output, '__tags.json')
       fs.writeFile(p, jsonData, 'utf8', (err) => {
         if (err) {

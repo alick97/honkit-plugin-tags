@@ -9,7 +9,12 @@
     "honkit": "*",
     "gitbook": "*"                                                                                                                                                           
   },  
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alick97/honkit-plugin-tags.git"
+  },
+  "homepage": "https://github.com/alick97/honkit-plugin-tags",
+  "keywords": ["honkit", "tags"],
   "author": "alick97",
   "license": "MIT"
 }
