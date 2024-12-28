@@ -2,6 +2,11 @@
 
 #### auto add tags page for index
 
+#### Install
+```
+npm install honkit-plugin-tags
+```
+
 #### config plugin in book.json
 ```
 "plugins": ["tags"]
